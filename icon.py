@@ -34,8 +34,8 @@ w = 1
 h = 0.9
 linewidth=1
 color = 'k'
-bottom = '#222222'
-top = '#444444'
+bottom = '#282828'
+top = '#383838'
 
 text='0CC'
 
