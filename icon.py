@@ -48,7 +48,7 @@ text = '0CC'
 fcolor = 'w'
 font = 'clear sans'
 fy = -6
-fsize = 34
+fsize = 30
 fweight = 700
 linespacing = .9
 
