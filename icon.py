@@ -85,11 +85,11 @@ def gradient_fill(x, y, top, bottom, ax=None, zfunc=None, **kwargs):
     if ax is None:
         ax = plt.gca()
 
-    line, = ax.plot(x, y, **kwargs)
+    # line, = ax.plot(x, y, alpha=0)
 
-    zorder = line.get_zorder() - 1
-    alpha = line.get_alpha()
-    alpha = 1.0 if alpha is None else alpha
+    # zorder = line.get_zorder() - 1
+    zorder = None
+    alpha = 1
 
     if zfunc is None:
         h, w = 100, 1
@@ -119,7 +119,6 @@ def gradient_fill(x, y, top, bottom, ax=None, zfunc=None, **kwargs):
 
     for clip in clippy:
         clip.set_clip_path(clip_path)
-    return line, im
 
 
 main()
