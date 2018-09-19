@@ -1,4 +1,7 @@
 import numpy as np
+import matplotlib as mpl
+mpl.rcParams['lines.linewidth'] = 0 # doesn't work
+
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import matplotlib.patches as patches
@@ -46,6 +49,13 @@ fsize = 34
 fweight = 700
 linespacing = .9
 
+hi = 0.015
+hicolor = '#606060'
+
+# shadow = -0.015
+shadow = False
+shadow_color = 'k'
+
 
 tnames = ['', '-transparent']
 def main():
@@ -59,8 +69,11 @@ def main():
             x = np.abs(c)**(2/p) * np.sign(c) * w
             y = np.abs(s)**(2/p) * np.sign(s) * h
 
-            # ax1.fill(x, y, c=fill, **kwargs)
-            gradient_fill(x, y, c=color, **kwargs, bottom=bottom, top=top, linewidth=linewidth,
+            if hi:
+                ax1.fill(x, y+hi, c=hicolor, **kwargs, linewidth=0)
+            if shadow:
+                ax1.fill(x, y+shadow, c=shadow_color, **kwargs, linewidth=0)
+            gradient_fill(x, y, bottom=bottom, top=top,
                 ax=ax1)
             # ax1.plot(x, y, c=color, **kwargs, linewidth=linewidth)
 
@@ -75,20 +88,19 @@ def main():
             color=fcolor,
             horizontalalignment='center',
             verticalalignment='center',
+            zorder=100
         )
-        plt.savefig(f'logo{suffix}.png', transparent=True)
+        plt.savefig(f'ic_launcher-web{suffix}.png', transparent=True)
         # plt.show()
 
 
-def gradient_fill(x, y, top, bottom, ax=None, zfunc=None, **kwargs):
+def gradient_fill(x, y, top, bottom, ax=None, zfunc=None):
     """based on https://stackoverflow.com/a/29347731/2683842"""
     if ax is None:
         ax = plt.gca()
 
-    # line, = ax.plot(x, y, alpha=0)
-
     # zorder = line.get_zorder() - 1
-    zorder = None
+    zorder = 10
     alpha = 1
 
     if zfunc is None:
@@ -104,17 +116,16 @@ def gradient_fill(x, y, top, bottom, ax=None, zfunc=None, **kwargs):
     clippy = []
 
     # Background fill
-    bg = ax.fill(x, y, c=bottom, zorder=zorder)
+    bg = ax.fill(x, y, c=bottom, zorder=zorder, linewidth=0)
     # clippy.extend(bg)
 
     # Gradient fill
     im = ax.imshow(z, aspect='auto', extent=[xmin, xmax, ymin, ymax],
-                   origin='lower', zorder=zorder)
+                   origin='lower', zorder=zorder+1)
     clippy.append(im)
 
     xy = np.column_stack([x, y])
-    # xy = np.vstack([[xmin, ymin], xy, [xmax, ymin], [xmin, ymin]])
-    clip_path = patches.Polygon(xy, facecolor='none', edgecolor='none', closed=True)
+    clip_path = patches.Polygon(xy, facecolor='none', edgecolor='none', closed=True, linewidth=0)
     ax.add_patch(clip_path)
 
     for clip in clippy:
