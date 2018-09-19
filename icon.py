@@ -36,11 +36,13 @@ linewidth=1
 color = 'k'
 bottom = '#222222'
 top = '#444444'
-text='w'
 
+text='0CC'
+
+fcolor='w'
 font = 'clear sans'
 fy = -6
-fsize = 27
+fsize = 34
 fweight = 700
 linespacing = .9
 
@@ -65,12 +67,12 @@ def main():
         # Draw text
         ax1.text(0,
             fy/100,
-            '0CC\nNSF',
+            text,
 
             family=font,
             fontsize=fsize, weight=fweight, linespacing=linespacing,
 
-            color=text,
+            color=fcolor,
             horizontalalignment='center',
             verticalalignment='center',
         )
