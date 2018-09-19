@@ -1,3 +1,5 @@
+# TODO: use a real vector graphics language with gradient/shadow support
+
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -51,10 +53,9 @@ fweight = 700
 linespacing = .9
 
 hi = 0.015
-hicolor = '#606060'
+hicolor = '#808080'
 
-# shadow = -0.015
-shadow = False
+shadow = -0.015
 shadow_color = 'k'
 
 tnames = ['', '-transparent']
